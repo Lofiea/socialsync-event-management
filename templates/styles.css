@@ -1,0 +1,119 @@
+/* styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F4EDEA;
+}
+
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    padding: 8px 12px;
+    line-height: 33px;
+     
+}
+
+/* Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    list-style: none;
+}
+
+.dropdown-content li {
+    padding: 4px 12px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/*------------------------------*/
+
+/* Search Bar */
+.search {
+    width: max-content; 
+    display: flex;
+    align-items: center;
+    padding: 14px; 
+    border-radius: 28px;
+    background: #f6f6f6;
+    height: 10px;
+    transition: box-shadow 0.18s;
+}
+
+.search:focus-within { /*give search bar a box shadow when clicked*/
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+}
+.search-input {
+    font-size: 16px; 
+    font-family: 'Lexend', sans-serif;
+    color:#333333; 
+    margin-left: 14px;
+    outline: none; 
+    border: none; 
+    background: transparent;
+}
+
+.search-input::placeholder, 
+.search-icon {
+    color:rgba(0, 0, 0, 0.35); /*makes icon the same color as search bar*/
+}
+
+/*------------------------------*/
+
+/* Buy Ticket Button */
+.login {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login:hover {
+    background-color: darkorange;
+}
+
+.response {
+    width: 100%;
+    height: auto;
+  }
