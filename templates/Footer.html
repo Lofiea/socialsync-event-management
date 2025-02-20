@@ -4,6 +4,7 @@
         <div class="social-media">
             <h3>Follow Us</h3>
             <ul>
+                <!-- Social Media Links -->
                 <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
                 <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
                 <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
@@ -15,6 +16,7 @@
         <div class="navigation">
             <h3>Navigation</h3>
             <ul>
+                <!-- Navigation Links -->
                 <li><a href="/home">Home</a></li>
                 <li><a href="/about">About Us</a></li>
                 <li><a href="/events">Events</a></li>
@@ -33,6 +35,7 @@
         <div class="legal">
             <h3>Legal</h3>
             <ul>
+                <!-- Legal Links -->
                 <li><a href="/privacy-policy">Privacy Policy</a></li>
                 <li><a href="/terms-of-service">Terms of Service</a></li>
                 <li><a href="/cookie-policy">Cookie Policy</a></li>
@@ -40,82 +43,96 @@
         </div>
     </div>
 
+    <!-- Footer Bottom -->
     <div class="footer-bottom">
         <p>&copy; <span id="current-year"></span> [Your Company Name]. All rights reserved.</p>
     </div>
 </footer>
 
 <script>
-    // Update the year dynamically
+    // This script updates the year dynamically in the footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
 </script>
 
 <style>
+    /* Footer styles */
     footer {
-        background: #333;
-        color: #fff;
-        padding: 20px 0;
+        background: #333;  /* Dark background for the footer */
+        color: #fff;  /* White text color */
+        padding: 20px 0;  /* Space at the top and bottom */
     }
 
+    /* Container for the footer content */
     .footer-container {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding: 0 20px;
+        display: flex;  /* Flexbox for layout */
+        justify-content: space-between;  /* Space out the sections */
+        flex-wrap: wrap;  /* Allow sections to wrap on smaller screens */
+        padding: 0 20px;  /* Padding on the left and right */
     }
 
+    /* Each section (social media, navigation, etc.) */
     .footer-container > div {
-        flex: 1;
-        margin: 0 20px;
+        flex: 1;  /* Each section takes equal width */
+        margin: 0 20px;  /* Space between sections */
     }
 
+    /* Styling for section headers */
     h3 {
-        font-size: 1.2em;
-        margin-bottom: 10px;
+        font-size: 1.2em;  /* Slightly larger text */
+        margin-bottom: 10px;  /* Space below the header */
     }
 
+    /* Style for unordered lists */
     ul {
-        list-style-type: none;
-        padding: 0;
+        list-style-type: none;  /* Remove bullet points */
+        padding: 0;  /* Remove padding */
     }
 
+    /* Style for list items */
     ul li {
-        margin: 5px 0;
+        margin: 5px 0;  /* Space between list items */
     }
 
+    /* Style for anchor links */
     ul li a {
-        color: #fff;
-        text-decoration: none;
+        color: #fff;  /* White text for links */
+        text-decoration: none;  /* No underline by default */
     }
 
+    /* Style for anchor links on hover */
     ul li a:hover {
-        text-decoration: underline;
+        text-decoration: underline;  /* Underline when hovering over links */
     }
 
+    /* Footer bottom section */
     .footer-bottom {
-        text-align: center;
-        padding-top: 20px;
-        border-top: 1px solid #444;
-        margin-top: 20px;
+        text-align: center;  /* Center align the text */
+        padding-top: 20px;  /* Space above the text */
+        border-top: 1px solid #444;  /* Add a line above the footer */
+        margin-top: 20px;  /* Space above the footer */
     }
 
+    /* Styling for footer bottom paragraph */
     .footer-bottom p {
-        font-size: 0.9em;
+        font-size: 0.9em;  /* Slightly smaller text */
     }
 
+    /* Specific styles for the social media, navigation, and legal sections */
     .social-media ul,
     .legal ul,
     .navigation ul {
-        padding: 0;
+        padding: 0;  /* Remove padding from lists */
     }
 
+    /* Space between list items in each section */
     .social-media ul li,
     .navigation ul li,
     .legal ul li {
-        margin: 5px 0;
+        margin: 5px 0;  /* Space between list items */
     }
 
+    /* Styling for contact information */
     .contact p {
-        margin: 5px 0;
+        margin: 5px 0;  /* Space between contact info lines */
     }
 </style>
