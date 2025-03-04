@@ -50,14 +50,14 @@
     <div class="container">
         <h2>Subscribe to Our Monthly Membership</h2>
         <p>Enjoy exclusive benefits like fast passes, discounts, and music selection!</p>
-        <button class="btn subscribe" onclick="subscribe()">Subscribe Now</button>
+        <button class="btn subscribe" onclick="goToPayment()">Subscribe Now</button>
         <button class="btn cancel" onclick="cancelSubscription()">Cancel Subscription</button>
         <p class="message" id="message"></p>
     </div>
 
     <script>
-        function subscribe() {
-            document.getElementById("message").innerText = "You have successfully subscribed!";
+        function goToPayment() {
+            window.location.href = "payment.html";
         }
         function cancelSubscription() {
             document.getElementById("message").innerText = "Your subscription has been canceled.";
