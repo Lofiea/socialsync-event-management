@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .subscribe {
+            background-color: #28a745;
+            color: white;
+        }
+        .cancel {
+            background-color: #dc3545;
+            color: white;
+        }
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Subscribe to Our Monthly Membership</h2>
+        <p>Enjoy exclusive benefits like fast passes, discounts, and music selection!</p>
+        <button class="btn subscribe" onclick="goToPayment()">Subscribe Now</button>
+        <button class="btn cancel" onclick="cancelSubscription()">Cancel Subscription</button>
+        <p class="message" id="message"></p>
+    </div>
+
+    <script>
+        function goToPayment() {
+            window.location.href = "payment.html";
+        }
+        function cancelSubscription() {
+            document.getElementById("message").innerText = "Your subscription has been canceled.";
+        }
+    </script>
+</body>
+</html>

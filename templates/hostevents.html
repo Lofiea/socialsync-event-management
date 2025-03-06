@@ -3,122 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <link rel="stylesheet" href="styles.css">
     <title>Create Event</title>
+=======
+    <title>Host Event - SocialSync</title>
+    <style>
+        /* Basic styles for the page, like font and background */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Nav bar styles, making it white with dark text */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #000000;
+        }
+
+        /* The logo, make it big and bold */
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* The menu links in the nav bar, spaced out */
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Links in nav bar */
+        .navbar .nav-links li {
+            display: inline;
+        }
+
+        /* Styling links in the nav bar */
+        .navbar .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* When hovering over a link in the nav bar, underline it */
+        .navbar .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Host event form container styling */
+        .host-event-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        /* Big font for the logo */
+        .logo {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Title of the form, make it bigger and bold */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Label for inputs, this will help people know what they need to type */
+        label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        /* Input and textarea fields, pretty standard, big enough for typing */
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* When a user clicks into the input or textarea, change the border color */
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+
+        /* Submit button, make it blue with white text */
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* When a user hovers over the button, make it a darker blue */
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* When the button is clicked, make it even darker */
+        button:active {
+            background-color: #004080;
+        }
+
+        /* For small screens (like phones), adjust the layout a bit */
+        @media (max-width: 480px) {
+            .host-event-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            input,
+            textarea {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+>>>>>>> 6a7ebf4575fef5f0816d47864cf2198dc8aa1511
 </head>
 <body>
 
-    <!-- This is the navigation bar at the top -->
+    <!-- This is the navigation bar -->
     <header>
         <nav class="navbar">
             <div class="logo">SocialSync</div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li> <!-- This takes you home -->
-                <li><a href="events.html">Events</a></li> <!-- This shows events -->
-                <li><a href="aboutus.html">About Us</a></li> <!-- Info about us -->
-                <li><a href="FAQ.html">FAQ</a></li> <!-- Frequently asked questions -->
-                <li><a href="contact.html">Contact</a></li> <!-- Contact us page -->
-                <li><a href="hostevents.html">Host Event</a></li> <!-- This is where you can host your own event -->
-                <li><a href="login.html"><button class="login">Login</button></a></li> <!-- For logging in -->
-                <li><a href="signup.html"><button class="signup">Sign Up</button></a></li> <!-- To sign up -->
+                <!-- Links to different pages, like home, events, etc. -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="FAQ.html">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="hostevents.html">Host Event</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- This is the section where the event form goes -->
-    <section class="host-event-section">
-        <div class="container">
-            <h1>Host Your Event</h1> <!-- Title of the page -->
-            <div class="line"></div> <!-- A simple line under the title -->
-            
-            <!-- Here is the form to host an event -->
-            <form class="event-form">
-                <!-- Event Title Input -->
-                <label for="event-title">Event Title</label>
-                <input type="text" id="event-title" name="event-title" placeholder="Enter the event title" required> <!-- This is for the title -->
+    <!-- This is the main content of the page where you can host your event -->
+    <div class="host-event-container">
+        <!-- Website Logo -->
+        <div class="logo">SocialSync</div>
+        
+        <!-- Title of the page -->
+        <h1>Host Your Event</h1>
 
-                <!-- Event Purpose Input -->
-                <label for="event-purpose">Event Purpose</label>
-                <textarea id="event-purpose" name="event-purpose" rows="4" placeholder="Enter the purpose of the event" required></textarea> <!-- Why the event is happening -->
+        <!-- Form to host event -->
+        <form class="event-form">
 
-                <!-- Event Description Input -->
-                <label for="event-description">Event Description</label>
-                <textarea id="event-description" name="event-description" rows="6" placeholder="Provide a brief description of the event" required></textarea> <!-- What the event is about -->
+            <!-- Input field for event title -->
+            <label for="event-title">Event Title</label>
+            <input type="text" id="event-title" name="event-title" placeholder="Enter the event title" required>
 
-                <!-- Event Location Input -->
-                <label for="event-location">Event Location</label>
-                <input type="text" id="event-location" name="event-location" placeholder="Enter the event location" required> <!-- Where will the event be -->
+            <!-- Textarea for event purpose -->
+            <label for="event-purpose">Event Purpose</label>
+            <textarea id="event-purpose" name="event-purpose" rows="4" placeholder="Enter the purpose of the event" required></textarea>
 
-                <!-- Entry Fees Input -->
-                <label for="entry-fees">Entry Fees</label>
-                <input type="number" id="entry-fees" name="entry-fees" placeholder="Enter entry fee (if any)" min="0" step="any" required> <!-- If there is a fee to enter -->
+            <!-- Textarea for event description -->
+            <label for="event-description">Event Description</label>
+            <textarea id="event-description" name="event-description" rows="6" placeholder="Provide a short description of the event" required></textarea>
 
-                <!-- Age Limit Input -->
-                <label for="age-limit">Age Limit</label>
-                <input type="number" id="age-limit" name="age-limit" placeholder="Enter age limit (if any)" min="0" required> <!-- Age restrictions for the event -->
+            <!-- Input field for event location -->
+            <label for="event-location">Event Location</label>
+            <input type="text" id="event-location" name="event-location" placeholder="Enter the event location" required>
 
-                <!-- Event Date Input -->
-                <label for="event-date">Event Date</label>
-                <input type="date" id="event-date" name="event-date" required> <!-- The date the event is happening -->
+            <!-- Input field for entry fees -->
+            <label for="entry-fees">Entry Fees</label>
+            <input type="text" id="entry-fees" name="entry-fees" placeholder="Enter entry fee" required>
 
-                <!-- Event Time Input -->
-                <label for="event-time">Event Time</label>
-                <input type="time" id="event-time" name="event-time" required> <!-- The time the event will start -->
+            <!-- Input field for age limit -->
+            <label for="age-limit">Age Limit</label>
+            <input type="text" id="age-limit" name="age-limit" placeholder="Enter age limit" required>
 
-                <!-- Additional Info -->
-                <label for="additional-info">Additional Information</label>
-                <textarea id="additional-info" name="additional-info" rows="4" placeholder="Any other information for the event"></textarea> <!-- Optional stuff you wanna add -->
-            
-            </form>
-        </div>
-    </section>
+            <!-- Input field for event date -->
+            <label for="event-date">Event Date</label>
+            <input type="date" id="event-date" name="event-date" required>
 
-    <!-- This is the footer -->
-    <footer>
-        <div class="footer-container">
-            <!-- Social Media Links -->
-            <div class="social-media">
-                <h3>Follow Us</h3>
-                <ul>
-                    <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
-                    <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
-                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
-                    <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
-                </ul>
-            </div>
-    
-            <!-- Navigation Links -->
-            <div class="navigation">
-                <h3>Navigation</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-    
-            <!-- Contact Info -->
-            <div class="contact">
-                <h3>Contact Us</h3>
-                <p>Email: <a href="mailto:support@example.com">support@example.com</a></p>
-                <p>Phone: +1 (123) 456-7890</p>
-            </div>
-    
-            <!-- Legal Info -->
-            <div class="legal">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="/privacy-policy">Privacy Policy</a></li>
-                    <li><a href="/terms-of-service">Terms of Service</a></li>
-                    <li><a href="/cookie-policy">Cookie Policy</a></li>
-                </ul>
-            </div>
-        </div>
-    
-        <div class="footer-bottom">
-            <p>&copy; 2025 [SocialSync]. All rights reserved.</p>
-        </div>
-    </footer>
+            <!-- Input field for event time -->
+            <label for="event-time">Event Time</label>
+            <input type="time" id="event-time" name="event-time" required>
+
+            <!-- Textarea for additional information -->
+            <label for="additional-info">Additional Information</label>
+            <textarea id="additional-info" name="additional-info" rows="4" placeholder="Any other info?" ></textarea>
+
+            <!-- Submit button -->
+            <button type="button" class="submit-btn">Still Figuring Out...</button>
+        </form>
+    </div>
+
 </body>
 </html>
