@@ -513,11 +513,26 @@ main {
     margin-right: 0.5rem;
 }
 
+/* Stars rating */
+
 .rating {
-    margin: 0.75rem 0;
-    color: #ffc107;
+    display: inline-block;
 }
 
+.rating .star{
+    cursor:pointer; 
+    font-size:2em; /*increased font-size */
+    color: #FFD300;
+}
+
+.rating .star .selected { 
+    color: gold;
+}
+
+.rating .star:hover, 
+.rating .star:hover ~ .star { 
+    color: orange; 
+}
 .attendees {
     font-size: 0.8rem;
     color: #999;
@@ -599,6 +614,8 @@ main {
     .event-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
+
+
 }
 /* Add event CSS */
 .app-container {

@@ -20,10 +20,6 @@
                 <li><a href="index.html">Home</a></li>
                 <li class="dropdown">
                     <a href="events.html">Events</a>
-                    <ul class="dropdown-content">
-                        <li><a href="#">Upcoming Events</a></li>
-                        <li><a href="#">Past Events</a></li>
-                    </ul>
                 </li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="FAQ.html">FAQ</a></li>
@@ -37,7 +33,7 @@
 
                 <!-- Login and Signup Buttons -->
                 <li><a href="login.html"><button class="login">Login</button></a></li>
-                <li><button class="login">Sign Up</button></li>
+                <li><a href="signup.html"><button class="login">Sign Up</button></a></li>
             </ul>
         </nav>
     </header>
@@ -93,11 +89,12 @@
           </select>
         </div>
         
-        <button class="ctaEvent"><a href="createevent.html"> Create Event</a></button>
+        <button class="ctaEvent"><a href="hostevents.html"> Create Event</a></button>
       </div>
       
       <!-- Event Grid -->
       <div class="event-grid">
+
         <!-- Event Card 1 -->
         <div class="event-card">
           <div class="event-header">
@@ -112,7 +109,13 @@
             <h4>Name of Event</h4>
             <p><span class="icon">📍</span> City, State</p>
             <p><span class="icon">🕒</span> Fri, Oct 15 • 8:00 PM</p>
-            <div class="rating">★★★★☆</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">125 attendees</p>
           </div>
         </div>
@@ -131,7 +134,13 @@
             <h4>Birthday Bash</h4>
             <p><span class="icon">📍</span> Downtown</p>
             <p><span class="icon">🕒</span> Sat, Oct 16 • 9:00 PM</p>
-            <div class="rating">★★★★★</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">78 attendees</p>
           </div>
         </div>
@@ -150,7 +159,13 @@
             <h4>Weekend Soccer</h4>
             <p><span class="icon">📍</span> Memorial Park</p>
             <p><span class="icon">🕒</span> Sun, Oct 17 • 10:00 AM</p>
-            <div class="rating">★★★☆☆</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">42 attendees</p>
           </div>
         </div>
@@ -169,7 +184,13 @@
             <h4>Pasta Making Class</h4>
             <p><span class="icon">📍</span> Culinary Studio</p>
             <p><span class="icon">🕒</span> Mon, Oct 18 • 6:00 PM</p>
-            <div class="rating">★★★★☆</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">15 attendees</p>
           </div>
         </div>
@@ -188,7 +209,13 @@
             <h4>Tech Meetup</h4>
             <p><span class="icon">📍</span> Innovation Hub</p>
             <p><span class="icon">🕒</span> Tue, Oct 19 • 7:00 PM</p>
-            <div class="rating">★★★★☆</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">93 attendees</p>
           </div>
         </div>
@@ -207,7 +234,13 @@
             <h4>Jazz Night</h4>
             <p><span class="icon">📍</span> Blue Note Cafe</p>
             <p><span class="icon">🕒</span> Wed, Oct 20 • 8:30 PM</p>
-            <div class="rating">★★★★★</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">67 attendees</p>
           </div>
         </div>
@@ -226,7 +259,13 @@
             <h4>Community BBQ</h4>
             <p><span class="icon">📍</span> Riverside Park</p>
             <p><span class="icon">🕒</span> Thu, Oct 21 • 12:00 PM</p>
-            <div class="rating">★★★☆☆</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">120 attendees</p>
           </div>
         </div>
@@ -245,7 +284,13 @@
             <h4>Marathon Training</h4>
             <p><span class="icon">📍</span> City Track</p>
             <p><span class="icon">🕒</span> Fri, Oct 22 • 6:00 AM</p>
-            <div class="rating">★★★★☆</div>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
             <p class="attendees">35 attendees</p>
           </div>
         </div>
@@ -266,6 +311,41 @@
       </div>
     </main>
   </div>
+
+  <!--Javascripts-->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const ratings = document.querySelectorAll('.rating');
+
+        ratings.forEach(ratingContainer => {
+            const stars = ratingContainer.querySelectorAll('.star');
+            const ratingDisplay = ratingContainer;
+
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const value = parseInt(star.dataset.value);
+                    ratingDisplay.dataset.rating = value;
+
+                    stars.forEach(s => {
+                        if (parseInt(s.dataset.value) <= value) {
+                            s.classList.add('selected');
+                        } else {
+                            s.classList.remove('selected');
+                        }
+                    });
+
+                    for (let i = value; i < stars.length; i++) {
+                        stars[i].textContent = "☆";
+                    }
+                    for (let i = 0; i < value; i++) {
+                        stars[i].textContent = "★";
+                    }
+                });
+            });
+        });
+    });
+</script>
+
 </body>
 
 </html>
