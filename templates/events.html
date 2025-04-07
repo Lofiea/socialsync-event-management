@@ -41,227 +41,231 @@
             </ul>
         </nav>
     </header>
-    <div class="main-container">
-        <aside class="sidebar">
-            <h3>Filter Events</h3>
-
-            <div class="filter-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" placeholder="Enter city or state">
-            </div>
-
-            <div class="filter-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" placeholder="Event name">
-            </div>
-
-            <div class="filter-group">
-                <label for="date">Date/Time</label>
-                <input type="date" id="date">
-            </div>
-
-            <div class="filter-group">
-                <label for="type">Event Type</label>
-                <select id="type">
-                    <option>All</option>
-                    <option>Music</option>
-                    <option>Sports</option>
-                    <option>Networking</option>
-                    <option>Private</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="age">Age</label>
-                <input type="range" id="age" min="0" max="100">
-            </div>
-
-            <button class="apply-filter">Apply Filter</button>
-        </aside>
-
-        <main>
-            <div class="tabs">
-                <button class="active">Upcoming Events</button>
-                <button>Past Events</button>
-                <div class="sort-options">
-                    <span>Sort by:</span>
-                    <select>
-                        <option>Recommended</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Date: Most recent</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="event-grid">
-                <!-- Event Card 1 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$15</span>
-                        <span class="tag">#Music</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Fri, Oct 15 • 8:00 PM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐⭐☆</span>
-                        </div>
-                        <p class="attendees">135 attendees</p>
-                    </div>
-                </div>
-
-                <!-- Event Card 2 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$25</span>
-                        <span class="tag">#Workshop</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Sat, Oct 16 • 10:00 AM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐⭐⭐</span>
-                        </div>
-                        <p class="attendees">78 attendees</p>
-                    </div>
-                </div>
-
-                <!-- Event Card 3 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$10</span>
-                        <span class="tag">#Sports</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Sun, Oct 17 • 2:00 PM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐☆☆</span>
-                        </div>
-                        <p class="attendees">210 attendees</p>
-                    </div>
-                </div>
-
-                <!-- Event Card 4 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$30</span>
-                        <span class="tag">#Concert</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Mon, Oct 18 • 7:00 PM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐⭐☆</span>
-                        </div>
-                        <p class="attendees">350 attendees</p>
-                    </div>
-                </div>
-
-                <!-- Event Card 5 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$20</span>
-                        <span class="tag">#Networking</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Tue, Oct 19 • 6:00 PM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐⭐⭐</span>
-                        </div>
-                        <p class="attendees">95 attendees</p>
-                    </div>
-                </div>
-
-                <!-- Event Card 6 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$15</span>
-                        <span class="tag">#Art</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Wed, Oct 20 • 1:00 PM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐☆☆</span>
-                        </div>
-                        <p class="attendees">65 attendees</p>
-                    </div>
-                </div>
-
-                <!-- Event Card 7 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$40</span>
-                        <span class="tag">#Festival</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Thu, Oct 21 • 11:00 AM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐⭐☆</span>
-                        </div>
-                        <p class="attendees">520 attendees</p>
-                    </div>
-                </div>
-
-                <!-- Event Card 8 -->
-                <div class="event-card">
-                    <div class="event-header">
-                        <span class="price">$5</span>
-                        <span class="tag">#Community</span>
-                        <button class="bookmark">🔖</button>
-                    </div>
-                    <div class="event-image">IMAGE</div>
-                    <div class="event-details">
-                        <h4>Name of Event</h4>
-                        <p><span class="icon">📍</span> City, State</p>
-                        <p><span class="icon">🕒</span> Fri, Oct 22 • 4:00 PM</p>
-                        <div class="rating">
-                            <span>⭐⭐⭐⭐⭐</span>
-                        </div>
-                        <p class="attendees">85 attendees</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pagination">
-                <button class="prev-page">❮</button>
-                <span>Page 1</span>
-                <button class="next-page">❯</button>
-                <div class="dots">
-                    <span class="active">●</span>
-                    <span>●</span>
-                    <span>●</span>
-                    <span>●</span>
-                    <span>●</span>
-                </div>
-            </div>
-        </main>
+    <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar (Filter Options) -->
+    <div class="sidebar">
+      <h3>Filter Events</h3>
+      
+      <div class="filter-group">
+        <label>Location</label>
+        <input type="text" placeholder="Enter city or state">
+      </div>
+      
+      <div class="filter-group">
+        <label>Name</label>
+        <input type="text" placeholder="Event name">
+      </div>
+      <!--Date and Time (Calendar)-->
+      <div class="filter-group">
+        <label>Date/Time</label>
+        <input type="date">
+      </div>
+  
+      <div class="filter-group">
+        <label>Event Type</label>
+        <select>
+          <option>All</option>
+          <option>Party</option>
+          <option>Music</option>
+          <option>Sports</option>
+          <option>Cooking</option>
+          <option>Networking</option>
+        </select>
+      </div>
+      
+      <button class="apply-filter">Apply Filters</button>
     </div>
+    
+    <!-- Main Content -->
+    <main>
+      <div class="tabs">
+        <button class="active">Upcoming Events</button>
+        <button>Past Events</button>
+        
+        <div class="sort-options">
+          <span>Sort by:</span>
+          <select>
+            <option>Recommended</option>
+            <option>Date</option>
+            <option>Price</option>
+            <option>Rating</option>
+          </select>
+        </div>
+        
+        <button class="ctaEvent"><a href="createevent.html"> Create Event</a></button>
+      </div>
+      
+      <!-- Event Grid -->
+      <div class="event-grid">
+        <!-- Event Card 1 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">$15</span>
+            <span class="tag">#Music</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Name of Event</h4>
+            <p><span class="icon">📍</span> City, State</p>
+            <p><span class="icon">🕒</span> Fri, Oct 15 • 8:00 PM</p>
+            <div class="rating">★★★★☆</div>
+            <p class="attendees">125 attendees</p>
+          </div>
+        </div>
+        
+        <!-- Event Card 2 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">$25</span>
+            <span class="tag">#Party</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Birthday Bash</h4>
+            <p><span class="icon">📍</span> Downtown</p>
+            <p><span class="icon">🕒</span> Sat, Oct 16 • 9:00 PM</p>
+            <div class="rating">★★★★★</div>
+            <p class="attendees">78 attendees</p>
+          </div>
+        </div>
+        
+        <!-- Event Card 3 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">Free</span>
+            <span class="tag">#Sports</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Weekend Soccer</h4>
+            <p><span class="icon">📍</span> Memorial Park</p>
+            <p><span class="icon">🕒</span> Sun, Oct 17 • 10:00 AM</p>
+            <div class="rating">★★★☆☆</div>
+            <p class="attendees">42 attendees</p>
+          </div>
+        </div>
+        
+        <!-- Event Card 4 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">$30</span>
+            <span class="tag">#Cooking</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Pasta Making Class</h4>
+            <p><span class="icon">📍</span> Culinary Studio</p>
+            <p><span class="icon">🕒</span> Mon, Oct 18 • 6:00 PM</p>
+            <div class="rating">★★★★☆</div>
+            <p class="attendees">15 attendees</p>
+          </div>
+        </div>
+        
+        <!-- Event Card 5 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">$20</span>
+            <span class="tag">#Networking</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Tech Meetup</h4>
+            <p><span class="icon">📍</span> Innovation Hub</p>
+            <p><span class="icon">🕒</span> Tue, Oct 19 • 7:00 PM</p>
+            <div class="rating">★★★★☆</div>
+            <p class="attendees">93 attendees</p>
+          </div>
+        </div>
+        
+        <!-- Event Card 6 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">$10</span>
+            <span class="tag">#Music</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Jazz Night</h4>
+            <p><span class="icon">📍</span> Blue Note Cafe</p>
+            <p><span class="icon">🕒</span> Wed, Oct 20 • 8:30 PM</p>
+            <div class="rating">★★★★★</div>
+            <p class="attendees">67 attendees</p>
+          </div>
+        </div>
+        
+        <!-- Event Card 7 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">Free</span>
+            <span class="tag">#Party</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Community BBQ</h4>
+            <p><span class="icon">📍</span> Riverside Park</p>
+            <p><span class="icon">🕒</span> Thu, Oct 21 • 12:00 PM</p>
+            <div class="rating">★★★☆☆</div>
+            <p class="attendees">120 attendees</p>
+          </div>
+        </div>
+        
+        <!-- Event Card 8 -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">$40</span>
+            <span class="tag">#Sports</span>
+            <button class="bookmark">🔖</button>
+          </div>
+          
+          <div class="event-image">IMAGE</div>
+          
+          <div class="event-details">
+            <h4>Marathon Training</h4>
+            <p><span class="icon">📍</span> City Track</p>
+            <p><span class="icon">🕒</span> Fri, Oct 22 • 6:00 AM</p>
+            <div class="rating">★★★★☆</div>
+            <p class="attendees">35 attendees</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="pagination">
+        <div>
+          <button>←</button>
+          <span>Page 1 of 3</span>
+          <button>→</button>
+        </div>
+        <div class="dots">
+          <span class="active">•</span>
+          <span>•</span>
+          <span>•</span>
+        </div>
+      </div>
+    </main>
+  </div>
 </body>
 
 </html>
