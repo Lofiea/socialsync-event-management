@@ -156,7 +156,30 @@
 </head>
 <body>
 
-
+     <!-- Navigation Bar -->
+     <header>
+        <nav class="navbar">
+          <div class="logo">
+            <img src="images/socialsynclogo2.png" alt="Logo" width="80" height="70" />
+          </div>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+              <a href="events.html">Events</a>
+            </li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="FAQ.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li class="search">
+              <span class="material-symbols-outlined">search</span>
+              <input class="search-input" type="search" placeholder="Search events..." />
+            </li>
+            <li><a href="login.html"><button class="login">Login</button></a></li>
+            <li><a href="signup.html"><button class="login">Sign Up</button></a></li>
+            <li><a href="subscription.html"><button class="login">Subscribe</button></a></li>
+          </ul>
+        </nav>
+      </header>
 
     <!-- This is the main content of the page where you can host your event -->
     <div class="host-event-container">
@@ -202,6 +225,10 @@
             <!-- Textarea for additional information -->
             <label for="additional-info">Additional Information</label>
             <textarea id="additional-info" name="additional-info" rows="4" placeholder="Any other info?" ></textarea>
+
+            <!-- Image upload for event -->
+            <label for="event-image">Add Image for Your Event</label>
+            <input type="file" id="event-image" name="event-image" accept="image/*">
 
             <!-- Submit button -->
             <button type="button" class="submit-btn">Submit</button>
