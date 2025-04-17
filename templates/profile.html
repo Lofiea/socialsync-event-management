@@ -348,7 +348,6 @@
         </div>
     </div>
 
-    <!-- JavaScript for photo upload functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const photoUpload = document.querySelector('.photo-upload');
@@ -359,18 +358,15 @@
                 fileInput.click();
             });
             
-            // When a file is selected, display it
             fileInput.addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 if (file && file.type.startsWith('image/')) {
                     const reader = new FileReader();
                     
                     reader.onload = function(e) {
-                        // Change the photo-upload div to display the selected image
                         photoUpload.innerHTML = '';
                         photoUpload.style.background = `url(${e.target.result}) center/cover no-repeat`;
-                        photoUpload.style.border = '2px solid orange'; // Highlight with your theme color
-                    };
+                        photoUpload.style.border = '2px solid orange'; 
                     
                     reader.readAsDataURL(file);
                 }
