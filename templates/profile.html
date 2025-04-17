@@ -6,6 +6,8 @@
     <!-- Load all Material Icons with a single link -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>SocialSync - Profile Page</title>
+
+    <!-- CSS Section -->
     <style>
         * {
             margin: 0;
@@ -95,7 +97,7 @@
             display: flex;
             margin-bottom: 40px;
         }
-        
+        /*--uploading photo--*/
         .photo-upload {
             width: 150px;
             height: 150px;
@@ -203,6 +205,8 @@
         }
     </style>
 </head>
+
+<!--HTML Section-->
 <body>
     <div class="sidebar">
         <div class="logo">
@@ -211,27 +215,31 @@
                 alt="SocialSync" class="socialsync-logo">
             </a>
         </div>
-        
+        <!-- Links and icons of notification-->
         <a href="#" class="nav-item">
             <i class="material-icons">notifications</i>
             <span class="nav-text">Notifications</span>
         </a>
         
+        <!-- Links and icons of subscription-->
         <a href="#" class="nav-item">
             <i class="material-icons">credit_card</i>
             <span class="nav-text">Subscription</span>
         </a>
         
+        <!-- Links and icons of settings-->
         <a href="#" class="nav-item active">
             <i class="material-icons">settings</i>
             <span class="nav-text">Settings</span>
         </a>
         
+        <!-- Links and icons of help/support-->
         <a href="#" class="nav-item">
             <i class="material-icons">help</i>
             <span class="nav-text">Help/Support</span>
         </a>
         
+        <!-- Links and icons of favorites-->
         <a href="#" class="nav-item">
             <i class="material-icons">favorite</i>
             <span class="nav-text">Favorites</span>
@@ -239,6 +247,7 @@
         
         <div class="spacer"></div>
         
+        <!-- Links and icons of log out-->
         <a href="#" class="nav-item logout">
             <i class="material-icons">logout</i>
             <span class="nav-text">Log out</span>
@@ -249,10 +258,12 @@
         <div class="profile-container">
             <div class="profile-header">
                 <div class="photo-upload">
-                    <div style="font-size: 24px; margin-bottom: 10px;">➕</div>
+                    <div style="font-size: 24px; margin-bottom: 10px;">
+                        <i class = "material-icons">add</i>
+                    </div>
                     <div>Add photo</div>
                 </div>
-                
+                <!--Personal information-->
                 <div class="personal-info">
                     <h2 class="section-title">Personal Info</h2>
                     
