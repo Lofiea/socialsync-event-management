@@ -263,6 +263,8 @@
                     </div>
                     <div>Add photo</div>
                 </div>
+                <!-- Hidden file input for photo upload -->
+                <input type="file" id="profile-photo-input" accept="image/*" style="display: none;">
                 <!--Personal information-->
                 <div class="personal-info">
                     <h2 class="section-title">Personal Info</h2>
@@ -278,13 +280,13 @@
                             <input type="text" id="last-name" name="last-name">
                         </div>
                     </div>
-                    
+                    <!--Email and Phone Number-->
                     <div class="form-row">
                         <div class="form-column">
                             <label for="email">Email Address:</label>
                             <input type="email" id="email" name="email">
                         </div>
-                        
+                        <!--Phone Number-->
                         <div class="form-column">
                             <label for="phone">Phone Number:</label>
                             <div class="country-container">
@@ -293,7 +295,7 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <!--Date of Birth-->
                     <div class="form-row">
                         <div class="form-column">
                             <label for="dob">Date of Birth:</label>
@@ -303,7 +305,7 @@
                                 <input type="text" class="dob-box" placeholder="YYYY">
                             </div>
                         </div>
-                        
+                        <!--Country-->
                         <div class="form-column">
                             <label for="country">Country:</label>
                             <select id="country" name="country">
@@ -319,5 +321,35 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript for photo upload functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const photoUpload = document.querySelector('.photo-upload');
+            const fileInput = document.getElementById('profile-photo-input');
+            
+            // When the photo upload area is clicked, trigger the file input
+            photoUpload.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            // When a file is selected, display it
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Change the photo-upload div to display the selected image
+                        photoUpload.innerHTML = '';
+                        photoUpload.style.background = `url(${e.target.result}) center/cover no-repeat`;
+                        photoUpload.style.border = '2px solid orange'; // Highlight with your theme color
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
