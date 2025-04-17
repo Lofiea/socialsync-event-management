@@ -1,43 +1,121 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Upload ID - SocialSync</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search"/>
-    <title>Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-    <body>
-        <!-- Navigation Bar -->
-        <header>
-            <nav class="navbar">
-                <div class="logo"><img src="images/socialsynclogo2.png" alt="Logo" width="80" height="70">
-                </div>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li class="dropdown">
-                        <a href="events.html">Events</a>
-                        <!---
-                        <ul class="dropdown-content">
-                            <li><a href="#">Upcoming Events</a></li>
-                            <li><a href="#">Past Events</a></li>
-                        </ul>
-                        -->
-                    </li>
-                    <li><a href="aboutus.html">About Us</a></li>
-                    <li><a href="FAQ.html">FAQ</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    
-                
-                    <!-- Search Bar -->
-                    <div class="search">
-                        <span class="search-icon material-symbols-outlined">search</span>
-                        <input class="search-input" type="search" placeholder="Search events...">
-                    </div>
-    
-                    <!-- Login and Signup Buttons -->
-                    <li><a href="login.html"><button class="login">Login</button></a></li>
-                    <li><button class="login">Sign Up</button></li>
-                </ul>
-            </nav>
-        </header>
+        .upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .upload-box {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        select, input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkorange;
+        }
+
+        .verification-status {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <div class="upload-box">
+            <h2>Verify Your Identity</h2>
+            <p>Please upload a valid government-issued ID to get verified.</p>
+
+            <!-- Dropdown for ID type -->
+            <label for="idType">Select ID Type:</label>
+            <select id="idType" name="idType">
+                <option value="">-- Choose ID Type --</option>
+                <option value="drivers-license">Driver's License</option>
+                <option value="passport">Passport</option>
+                <option value="state-id">State ID</option>
+                <option value="school-id">School ID</option>
+            </select>
+
+            <!-- File upload -->
+            <input type="file" id="uploadID" name="uploadID" accept="image/*,application/pdf">
+
+            <!-- Upload Button -->
+            <button onclick="verifyUserID()">Upload ID</button>
+
+            <!-- Verification status message -->
+            <div id="verificationStatus" class="verification-status"></div>
+        </div>
+    </div>
+
+    <script>
+        function verifyUserID() {
+            const fileInput = document.getElementById("uploadID");
+            const idType = document.getElementById("idType");
+            const status = document.getElementById("verificationStatus");
+
+            if (idType.value === "") {
+                status.textContent = "Please select an ID type.";
+                status.style.color = "red";
+            } else if (fileInput.files.length === 0) {
+                status.textContent = "Please upload your ID file.";
+                status.style.color = "red";
+            } else {
+                status.textContent = "Verified ✅";
+                status.style.color = "green";
+            }
+        }
+    </script>
+</body>
+</html>
