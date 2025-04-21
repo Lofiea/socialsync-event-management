@@ -10,6 +10,28 @@
 
 </head>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bookmarkButtons = document.querySelectorAll('.bookmark');
+
+    bookmarkButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const eventId = button.getAttribute('data-id');
+        saveFavoriteEvent(eventId);
+        alert("Event added to favorites!");
+      });
+    });
+
+    function saveFavoriteEvent(id) {
+      let favorites = JSON.parse(localStorage.getItem('favoriteEvents')) || [];
+      if (!favorites.includes(id)) {
+        favorites.push(id);
+        localStorage.setItem('favoriteEvents', JSON.stringify(favorites));
+      }
+    }
+  });
+</script>
+
 <body>
     <!-- Navigation Bar -->
     <header>
@@ -277,7 +299,7 @@
           <div class="event-header">
             <span class="price">$40</span>
             <span class="tag">#Sports</span>
-            <button class="bookmark">🔖</button>
+            <button class="bookmark" data-id="1">❤️</button>
           </div>
           
           <div class="event-image">IMAGE</div>

@@ -259,6 +259,8 @@
         <a href="#" class="nav-item">
             <i class="material-icons">favorite</i>
             <span class="nav-text">Favorites</span>
+            <h2>Your Favorite Events</h2>
+            <ul id="favorite-list"></ul>
         </a>
 
         <div class="spacer"></div>
@@ -373,5 +375,28 @@
             });
         });
     </script>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const favoriteList = document.getElementById('favorite-list');
+    const allEvents = [
+      { id: "1", name: "Jazz Night" },
+      { id: "2", name: "Tech Meetup" },
+      { id: "3", name: "Weekend Soccer" },
+      // Add all events here with their correct IDs and names
+    ];
+
+    const favorites = JSON.parse(localStorage.getItem('favoriteEvents')) || [];
+    favorites.forEach(favId => {
+      const event = allEvents.find(e => e.id === favId);
+      if (event) {
+        const li = document.createElement('li');
+        li.textContent = event.name;
+        favoriteList.appendChild(li);
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
