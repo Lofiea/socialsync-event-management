@@ -255,12 +255,13 @@
             <span class="nav-text">Help/Support</span>
         </a>
         
-        <!-- Links and icons of favorites-->
+        <!-- Links and icons of favorites
         <a href="#" class="nav-item">
             <i class="material-icons">favorite</i>
             <span class="nav-text">Favorites</span>
         </a>
-
+        -->
+        
         <div class="spacer"></div>
         
         <!-- Links and icons of log out-->
@@ -353,20 +354,23 @@
             const photoUpload = document.querySelector('.photo-upload');
             const fileInput = document.getElementById('profile-photo-input');
             
-            // When the photo upload area is clicked, trigger the file input
+             // Adds a click event to the photo display area to trigger file input
             photoUpload.addEventListener('click', function() {
                 fileInput.click();
             });
             
             fileInput.addEventListener('change', function(event) {
                 const file = event.target.files[0];
+                // Checks if the selected file is an image
                 if (file && file.type.startsWith('image/')) {
                     const reader = new FileReader();
-                    
+
+                    // Runs once the file has been read as a data URL
                     reader.onload = function(e) {
                         photoUpload.innerHTML = '';
                         photoUpload.style.background = `url(${e.target.result}) center/cover no-repeat`;
                         photoUpload.style.border = '2px solid orange'; 
+                    }; 
                     
                     reader.readAsDataURL(file);
                 }
