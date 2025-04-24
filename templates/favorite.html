@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Favorite Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 18px;
+    }
+    li:last-child {
+      border-bottom: none;
+    }
+    .empty {
+      text-align: center;
+      color: #888;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Your Favorite Events</h2>
+    <ul id="favorite-list"></ul>
+    <p class="empty" id="empty-message">You have no favorite events yet.</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const favoriteList = document.getElementById('favorite-list');
+      const emptyMessage = document.getElementById('empty-message');
+
+      // Define all events (This should match the events from your main page)
+      const allEvents = [
+        { id: "1", name: "Jazz Night" },
+        { id: "2", name: "Tech Meetup" },
+        { id: "3", name: "Weekend Soccer" },
+        // Add all events here with their correct IDs and names
+      ];
+
+      // Get favorite events from localStorage
+      const favorites = JSON.parse(localStorage.getItem('favoriteEvents')) || [];
+
+      // If there are no favorites, show the empty message
+      if (favorites.length === 0) {
+        emptyMessage.style.display = 'block';
+        favoriteList.style.display = 'none';
+        return;
+      } else {
+        emptyMessage.style.display = 'none';
+        favoriteList.style.display = 'block';
+      }
+
+      // Loop through favorite IDs and display the matching event names
+      favorites.forEach(favId => {
+        const event = allEvents.find(e => e.id === favId);
+        if (event) {
+          const li = document.createElement('li');
+          li.textContent = event.name;
+          favoriteList.appendChild(li);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
