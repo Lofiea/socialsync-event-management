@@ -408,7 +408,7 @@ main {
     border: none;
     padding: 0.5rem 1rem;
     margin-right: 1rem;
-    cursor: pointer;
+    cursor: pointer; 
     font-weight: 500;
     color: #666;
 }
@@ -722,11 +722,11 @@ main {
   }
   
   .btn-submit {
-    background-color: #4299e1;
+    background-color: orange;
     border: none;
     color: white;
   }
   
   .btn-submit:hover {
-    background-color: #3182ce;
+    background-color: orange;
   }
