@@ -101,6 +101,8 @@
 
       <!-- Event Grid -->
       <div class="event-grid">
+        {% if events %}   
+          {% for event in events %}
         <!-- Repeat this block for each event -->
         <div class="event-card">
           <div class="event-header">
@@ -120,9 +122,13 @@
               <span class="star" data-value="4">☆</span>
               <span class="star" data-value="5">☆</span>
             </div>
-            <p class="attendees">125 attendees</p>
+            <p class="attendees">{{ event['attendees'] if event['attendees'] else '0' }} attendees</p>
           </div>
         </div>
+        {% endfor %}
+        {% else %}
+          <p>No events available.</p>
+        {% endif %} 
 
         <!-- Add more cards with unique IDs -->
         <div class="event-card">

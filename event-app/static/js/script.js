@@ -15,6 +15,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const eventTypeInput = document.getElementById('event-type');
     const budgetInput = document.getElementById('budget');
   
+
+    // Add Start Date Button Click Event
+    // Reference to the Start Date button and input
+    const startDateButton = document.getElementById('start-date-button');
+    const startDateInput = document.getElementById('start-date');
+
+    // Click event to open the date picker
+    startDateButton.addEventListener('click', function () {
+        startDateInput.focus();
+    });
+
+    // Update button text when a date is selected
+    startDateInput.addEventListener('change', function () {
+        startDateButton.querySelector('span').textContent = this.value || 'Pick a date';
+    });
+    
     // Toggle location input placeholder based on offline status
     isOfflineToggle.addEventListener('change', function() {
       locationInput.placeholder = this.checked ? 
@@ -179,8 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateForm() {
       let isValid = true;
       
-      // You would implement actual validation here
-      // This is just a simple example
+      // handle required fields
       if (!document.getElementById('event-name').value) {
         document.getElementById('event-name-error').textContent = 'Event name is required';
         isValid = false;
