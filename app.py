@@ -1,6 +1,8 @@
 from flask import Flask, render_template
+from eventRoutes import events_bp
 
 app = Flask(__name__)
+app.register_blueprint(events_bp)
 
 @app.route('/')
 def home():
