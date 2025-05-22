@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3 
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey' #Secret key for session management
 #Database connection function 
 def get_db_connection(): 
     connection = sqlite3.connect('database.db')
@@ -14,13 +15,61 @@ def index():
     return render_template('index.html')
 
 #route for the login page
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST': 
+        email = request.form['email']
+        password = request.form['password']
+
+        connection = get_db_connection()
+        user = connection.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
+        connection.close()
+
+        if user and user['password'] == password: 
+            session['logged_in'] = True
+            session['username'] = user['username']
+            flash('You have successfully logged in!')
+            return redirect(url_for('index'))
+        
+        error = "Invalid email or password."
+        return render_template('login.html', error=error)
     return render_template('login.html')
 
 #route for the signup page
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if request.method == 'POST': 
+        username = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        confirm = request.form['confirm-password']
+
+        if password != confirm: 
+            error = "Passwords don't match."
+            return render_template('signup.html', error=error)
+       
+        #check if username or email already exists
+        connection = get_db_connection()
+        existing_user = connection.execute('SELECT * FROM users WHERE username = ? OR email = ?',
+                                            (username, email)).fetchone()
+        if existing_user: 
+            error = "An account with this username or email already exists."
+            connection.close()
+            return render_template('signup.html', error=error)
+        #insert user into database
+        connection = get_db_connection()
+        connection.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+                           (username, email, password))
+        connection.commit()
+        print("New user created:", username, email)
+        connection.close()
+
+        session['logged_in'] = True
+        session['username'] = username
+        flash('You have successfully signed up!')
+
+        #redirect to login after successful sign-up
+        return redirect(url_for('login'))
     return render_template('signup.html')
 
 #route for the profile page
