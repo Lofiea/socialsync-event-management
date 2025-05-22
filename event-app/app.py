@@ -2,33 +2,30 @@ from flask import Flask, render_template, request, redirect, url_for
 import sqlite3 
 
 app = Flask(__name__)
-#Database connection function 
+
+# Database connection function 
 def get_db_connection(): 
     connection = sqlite3.connect('database.db')
-    connection.row_factory = sqlite3.Row #Access data by column name 
+    connection.row_factory = sqlite3.Row
     return connection 
 
-#route for the home page 
+# Home page 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-#route for the login page
 @app.route('/login')
 def login():
     return render_template('login.html')
 
-#route for the signup page
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
 
-#route for the profile page
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
 
-#route for the event page
 @app.route('/events')
 def events():
     connection = get_db_connection()
@@ -36,7 +33,6 @@ def events():
     connection.close()
     return render_template('events.html', events=events)
 
-#route for the event details page
 @app.route('/host-events')
 def host_events():
     return render_template('hostevents.html')
@@ -69,26 +65,38 @@ def privacypolicy():
 def faq():
     return render_template('FAQ.html')
 
-#route to create an event - with POST handling 
-@app.route('/create-event')
+# creating events
+@app.route('/create-event', methods=['GET', 'POST'])
 def create_event():
     if request.method == 'POST':
-        #Get data from form 
-        title = request.form['title']
-        description = request.form['description']
-        date = request.form['date']
-        location = request.form['location'] 
-
-        #insert data into the events table
-        connection = get_db_connection()
-        connection.execute('INSERT INTO events (title, description, date, location) VALUES (?, ?, ?, ?)',
-                           (title, description, date, location))
-        connection.commit()
-        connection.close()
-
-        #redirect to events page to see the new event 
+        data = request.form
+        conn = get_db_connection()
+        conn.execute('''
+            INSERT INTO events (
+                name, description, start_date, start_time, end_date, end_time,
+                location, is_offline, capacity, visibility, host,
+                age_tag, event_type, budget, notes
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            data.get('name'),
+            data.get('notes'),
+            data.get('startDate'),
+            data.get('startTime'),
+            data.get('endDate'),
+            data.get('endTime'),
+            data.get('location'),
+            1 if data.get('isOffline') == 'on' else 0,
+            data.get('capacity'),
+            data.get('visibility', 'Public'),
+            data.get('host', 'Anonymous'),
+            data.get('age_tag', 'All Ages'),
+            data.get('event_type'),
+            data.get('budget'),
+            data.get('notes')
+        ))
+        conn.commit()
+        conn.close()
         return redirect(url_for('events'))
-    
     return render_template('createevent.html')
 
 if __name__ == '__main__':
