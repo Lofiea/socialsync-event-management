@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3 
+import re #regex pattern matching 
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey' #Secret key for session management
@@ -44,10 +45,36 @@ def signup():
         password = request.form['password']
         confirm = request.form['confirm-password']
 
+        #Validate the input, check password strength and match
         if password != confirm: 
             error = "Passwords don't match."
             return render_template('signup.html', error=error)
        
+        if len(password) < 8: 
+            error = "Password must be at least 8 characters long." 
+            return render_template('signup.html', error=error)
+        
+        elif not re.research(r"[A-Z]", password): 
+            error = "Password must contain at least one uppercase letter."
+            return render_template('signup.html', error=error)
+        
+        elif not re.search(r"[a-z]", password):
+            error = "Password must contain at least one lowercase letter."
+            return render_template('signup.html', error=error)
+        
+        elif not re.search(r'[0-9]', password):
+            error = "Password must contain at least one number."
+            return render_template('signup.html', error=error)
+        
+        elif not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            error = "Password must contain at least one special character."
+            return render_template('signup.html', error=error)
+        else: 
+            error = None 
+
+        if error: 
+            return render_template('signup.html', error=error)
+        
         #check if username or email already exists
         connection = get_db_connection()
         existing_user = connection.execute('SELECT * FROM users WHERE username = ? OR email = ?',

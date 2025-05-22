@@ -168,6 +168,7 @@
             <label for="confirm-password">Confirm Password</label>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
 
+            <p class="error-message" style="display: none; color: red;"></p>"
             <!-- Submit Button -->
             <button type="submit" class="signup-btn">Sign Up</button>
 
@@ -177,4 +178,24 @@
     </div>
 
 </body>
+
+<script>
+    document.querySelector('.signup-form').addEventListener('submit', function(e) {
+    const password = document.getElementById('password').value;
+    const errorBox = document.querySelector('.error-message');
+
+    const errors = [];
+    if (password.length < 8) errors.push("8+ characters");
+    if (!/[A-Z]/.test(password)) errors.push("uppercase letter");
+    if (!/[a-z]/.test(password)) errors.push("lowercase letter");
+    if (!/[0-9]/.test(password)) errors.push("number");
+    if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) errors.push("special character");
+
+    if (errors.length > 0) {
+        e.preventDefault();
+        errorBox.innerText = "Password must include: " + errors.join(", ");
+        errorBox.style.display = "block";
+    }
+});
+</script>
 </html>
