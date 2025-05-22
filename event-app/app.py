@@ -1,9 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3 
+import re #regex pattern matching 
 
 app = Flask(__name__)
+<<<<<<< HEAD
 
 # Database connection function 
+=======
+app.secret_key = 'supersecretkey' #Secret key for session management
+#Database connection function 
+>>>>>>> ae7e6918abd67404115bf3cbd27883c0338d4f56
 def get_db_connection(): 
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
@@ -14,12 +20,96 @@ def get_db_connection():
 def index():
     return render_template('index.html')
 
+<<<<<<< HEAD
 @app.route('/login')
+=======
+#route for the login page
+@app.route('/login', methods=['GET', 'POST'])
+>>>>>>> ae7e6918abd67404115bf3cbd27883c0338d4f56
 def login():
+    if request.method == 'POST': 
+        email = request.form['email']
+        password = request.form['password']
+
+        connection = get_db_connection()
+        user = connection.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
+        connection.close()
+
+        if user and user['password'] == password: 
+            session['logged_in'] = True
+            session['username'] = user['username']
+            flash('You have successfully logged in!')
+            return redirect(url_for('index'))
+        
+        error = "Invalid email or password."
+        return render_template('login.html', error=error)
     return render_template('login.html')
 
+<<<<<<< HEAD
 @app.route('/signup')
+=======
+#route for the signup page
+@app.route('/signup', methods=['GET', 'POST'])
+>>>>>>> ae7e6918abd67404115bf3cbd27883c0338d4f56
 def signup():
+    if request.method == 'POST': 
+        username = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        confirm = request.form['confirm-password']
+
+        #Validate the input, check password strength and match
+        if password != confirm: 
+            error = "Passwords don't match."
+            return render_template('signup.html', error=error)
+       
+        if len(password) < 8: 
+            error = "Password must be at least 8 characters long." 
+            return render_template('signup.html', error=error)
+        
+        elif not re.research(r"[A-Z]", password): 
+            error = "Password must contain at least one uppercase letter."
+            return render_template('signup.html', error=error)
+        
+        elif not re.search(r"[a-z]", password):
+            error = "Password must contain at least one lowercase letter."
+            return render_template('signup.html', error=error)
+        
+        elif not re.search(r'[0-9]', password):
+            error = "Password must contain at least one number."
+            return render_template('signup.html', error=error)
+        
+        elif not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            error = "Password must contain at least one special character."
+            return render_template('signup.html', error=error)
+        else: 
+            error = None 
+
+        if error: 
+            return render_template('signup.html', error=error)
+        
+        #check if username or email already exists
+        connection = get_db_connection()
+        existing_user = connection.execute('SELECT * FROM users WHERE username = ? OR email = ?',
+                                            (username, email)).fetchone()
+        if existing_user: 
+            error = "An account with this username or email already exists."
+            connection.close()
+            return render_template('signup.html', error=error)
+        #insert user into database
+        connection = get_db_connection()
+        connection.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+                           (username, email, password))
+        connection.commit()
+        print("New user created:", username, email)
+        connection.close()
+
+        session['logged_in'] = True
+        session['username'] = username
+        flash('You have successfully signed up!')
+
+        #redirect to login after successful sign-up
+        return redirect(url_for('login'))
     return render_template('signup.html')
 
 @app.route('/profile')
