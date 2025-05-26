@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <title>Events</title>
 
@@ -41,28 +41,24 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="{{ url_for('static', filename='images/socialsynclogo2.png') }}" alt="Logo" width="80" height="70" />
+        <img src="images/socialsynclogo2.png" alt="Logo" width="80" height="70" />
       </div>
       <ul class="nav-links">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('events') }}">Events</a></li>
-        <li><a href="{{ url_for('create_event') }}">Create Event</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Contact</a></li>
-        <li>
-          <div class="search">
-            <span class="search-icon material-symbols-outlined">search</span>
-            <input class="search-input" type="search" placeholder="Search events..." />
-          </div>
-        </li>
-        <li><a href="/login"><button class="login">Login</button></a></li>
-        <li><a href="/signup"><button class="login">Sign Up</button></a></li>
-        <li><a href="/profile"><button class="profile">Profile</button></a></li>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown"><a href="events.html">Events</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="FAQ.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <div class="search">
+          <span class="search-icon material-symbols-outlined">search</span>
+          <input class="search-input" type="search" placeholder="Search events..." />
+        </div>
+        <li><a href="login.html"><button class="login">Login</button></a></li>
+        <li><a href="signup.html"><button class="login">Sign Up</button></a></li>
+        <li><a href="profile.html"><button class="profile">Profile</button></a></li>
       </ul>
     </nav>
   </header>
-  
 
   <!-- Main Container -->
   <div class="main-container">
@@ -100,26 +96,25 @@
             <option>Rating</option>
           </select>
         </div>
-        <button class="ctaEvent"><a href="createevent.html">Create Event</a></button>
+        <button class="ctaEvent"><a href="{{ url_for('create_event')}}">Create Event</a></button>
       </div>
 
       <!-- Event Grid -->
       <div class="event-grid">
-        {% for event in events %}
+        {% if events %}   
+          {% for event in events %}
+        <!-- Repeat this block for each event -->
         <div class="event-card">
           <div class="event-header">
-            <span class="price">$10</span>
-            <span class="tag">#{{ event['event_type'] }}</span>
-            <button class="bookmark" data-id="{{ event['id'] }}">🤍</button>
+            <span class="price">$15</span>
+            <span class="tag">#Music</span>
+            <button class="bookmark" data-id="1">🤍</button>
           </div>
-          <div class="event-image">
-            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Event" style="width:100%; height:100%; object-fit:cover;">
-          </div>                     
-          </div>
+          <div class="event-image">IMAGE</div>
           <div class="event-details">
-            <h4>{{ event['name'] }}</h4>
-            <p><span class="icon">📍</span> {{ event['location'] }}</p>
-            <p><span class="icon">🕒</span> {{ event['start_date'] }} • {{ event['start_time'] }}</p>
+            <h4>Name of Event</h4>
+            <p><span class="icon">📍</span> City, State</p>
+            <p><span class="icon">🕒</span> Fri, Oct 15 • 8:00 PM</p>
             <div class="rating">
               <span class="star" data-value="1">☆</span>
               <span class="star" data-value="2">☆</span>
@@ -127,12 +122,40 @@
               <span class="star" data-value="4">☆</span>
               <span class="star" data-value="5">☆</span>
             </div>
-            <p class="attendees">Hosted by {{ event['host'] }}</p>
+            <p class="attendees">{{ event['attendees'] if event['attendees'] else '0' }} attendees</p>
           </div>
         </div>
         {% endfor %}
+        {% else %}
+          <p>No events available.</p>
+        {% endif %} 
+
+        <!-- Add more cards with unique IDs -->
+        <div class="event-card">
+          <div class="event-header">
+            <span class="price">$25</span>
+            <span class="tag">#Party</span>
+            <button class="bookmark" data-id="2">🤍</button>
+          </div>
+          <div class="event-image">IMAGE</div>
+          <div class="event-details">
+            <h4>Birthday Bash</h4>
+            <p><span class="icon">📍</span> Downtown</p>
+            <p><span class="icon">🕒</span> Sat, Oct 16 • 9:00 PM</p>
+            <div class="rating">
+              <span class="star" data-value="1">☆</span>
+              <span class="star" data-value="2">☆</span>
+              <span class="star" data-value="3">☆</span>
+              <span class="star" data-value="4">☆</span>
+              <span class="star" data-value="5">☆</span>
+            </div>
+            <p class="attendees">78 attendees</p>
+          </div>
+        </div>
+
+        <!-- Add other event cards below the same way, incrementing data-id="3", "4", etc. -->
+        <!-- ... -->
       </div>
-      
 
       <!-- Pagination -->
       <div class="pagination">

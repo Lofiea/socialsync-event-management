@@ -4,9 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask(__name__)  
-app.config['SECRET_KEY'] = '4653'
+app.config['SECRET_KEY'] = 'supersecretkey'
 # SQLite database file will be created in the project root
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/dishitasingh/CI-03/the-party-website/instance/users.db'     
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/users.db'    
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -31,8 +31,9 @@ class User(db.Model):
 # ----------------------------------------
 # Routes
 # ----------------------------------------
-@app.before_request
-with app.app_context():
+@app.before_first_request
+def create_tables():
+    # this will run once, before handling the very first request
     db.create_all()
 
 '''def create_tables():
@@ -116,6 +117,6 @@ def host_event():
 
 if __name__ == '__main__':
     # ensure the DB file exists
-    if not os.path.exists('users.db'):
-        open('users.db', 'a').close()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)

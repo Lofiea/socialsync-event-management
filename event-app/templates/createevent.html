@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create New Event</title>
   <link rel="stylesheet" href="styles.css">
+
 </head>
 <style>
   :root {
@@ -193,9 +194,8 @@ body {
   cursor: pointer;
   transition: border-color 0.15s ease;
   outline: none; /* Remove the default focus outline */
-  border-color: var(--border-color); /* Ensure consistent border color */
-  box-shadow: none; /* Remove any default box shadow */
-  background-color: var(--card-background); /* Ensure consistent background */
+  border: 1px solid var(--border-color); /* Ensure consistent border color */
+  box-shadow: none; /* Remove the orange focus shadow */
 }
 
 .date-picker-button:focus {
@@ -549,6 +549,14 @@ input:checked + .slider:before {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.visually-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
 </style>
 <body>
   <div class="page-container">
@@ -557,38 +565,167 @@ input:checked + .slider:before {
       
       <div class="card">
         <div class="card-content">
-          <form id="event-form" class="event-form" method="POST" action="/createevent">
+          <form id="event-form" class="event-form" method="POST" action="/create-event">
             <div class="form-grid">
+              <!-- Left Column -->
               <div class="form-column">
                 <!-- Event Name -->
                 <div class="form-group">
                   <label for="event-name" class="form-label">Event Name</label>
-                  <input type="text" id="event-name" name="name" class="form-input" placeholder="Enter event name" required>
+                  <input type="text" id="event-name" class="form-input" name="title" placeholder="Enter event name">
+                  <div class="form-error" id="event-name-error"></div>
                 </div>
-          
+
                 <!-- Event Description -->
                 <div class="form-group">
                   <label for="event-description" class="form-label">Event Description</label>
-                  <textarea id="event-description" name="notes" class="form-textarea" placeholder="Enter a brief description..." rows="4" required></textarea>
+                  <textarea id="event-description" class="form-textarea" name = "description" placeholder="Enter a brief description of the event..." rows="4"></textarea>
+                  <div class="form-error" id="event-description-error"></div>
                 </div>
-          
-                <!-- Start Date and Time -->
-                <div class="form-group">
-                  <label class="form-label">Start Date & Time</label>
-                  <div class="date-time-container">
-                    <input type="date" id="start-date" name="startDate" class="form-input" required>
-                    <input type="time" id="start-time" name="startTime" class="form-input" required>
+
+                <!-- Date and Time Section -->
+                <div class="form-section">
+                  <!-- Start Date/Time -->
+                  <div class="form-group">
+                    <label class="form-label">Start</label>
+                    <div class="date-time-container">   
+                      <div class="date-picker-wrapper">
+                        <input type="date" id="start-date" name="date" class="visually-hidden" required>
+                        <button type="button" class="date-picker-button" id="start-date-button">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                          </svg>
+                          <span>Pick a date</span>
+                        </button>
+                      </div>
+                      <input type="time" id="start-time" name="time" class="time-input" value="09:00" required>
+                    </div>
+                    <div class="form-error" id="start-date-error"></div>
+                  </div>
+                  
+                  <!-- End Date/Time -->
+                  <div class="form-group">
+                    <label class="form-label">End</label>
+                    <div class="date-time-container">
+                      <div class="date-picker-wrapper">
+                        <button type="button" class="date-picker-button">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                          </svg>
+                          <span id="end-date-display">Pick a date</span>
+                        </button>
+                        <input type="hidden" id="end-date" name="endDate">
+                      </div>
+                      <input type="time" id="end-time" class="time-input" value="17:00">
+                    </div>
+                    <div class="form-error" id="end-date-error"></div>
                   </div>
                 </div>
-          
+
                 <!-- Event Location -->
                 <div class="form-group">
-                  <label for="location" class="form-label">Location</label>
-                  <input type="text" id="location" name="location" class="form-input" placeholder="Enter city or venue" required>
+                  <div class="label-with-toggle">
+                    <label class="form-label">Event Location</label>
+                    <div class="toggle-container">
+                      <span class="toggle-label">Online</span>
+                      <label class="switch">
+                        <input type="checkbox" id="is-offline">
+                        <span class="slider"></span>
+                      </label>
+                      <span class="toggle-label">Offline</span>
+                    </div>
+                  </div>
+                  <div class="location-input-container">
+                    <input type="text" id="location" class="form-input location-input" placeholder="Add online event URL">
+                    <button type="button" class="map-button">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="form-error" id="location-error"></div>
+                </div>
+
+                <!-- Tickets Section -->
+                <div class="tickets-section">
+                  <h2 class="section-title">Tickets</h2>
+
+                  <div class="capacity-container">
+                    <label for="capacity" class="form-label">Capacity</label>
+                    <div class="capacity-controls">
+                      <input type="number" id="capacity" class="capacity-input" placeholder="0">
+                      <div class="unlimited-checkbox">
+                        <input type="checkbox" id="is-unlimited" class="checkbox">
+                        <label for="is-unlimited" class="checkbox-label">Unlimited</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Visibility Options -->
+                  <div class="form-group">
+                    <label class="form-label">Visibility</label>
+                    <div class="radio-group">
+                      <div class="radio-option">
+                        <input type="radio" id="private" name="visibility" value="private" checked>
+                        <label for="private" class="radio-label">Private</label>
+                      </div>
+                      <div class="radio-option">
+                        <input type="radio" id="public" name="visibility" value="public">
+                        <label for="public" class="radio-label">Public</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Host Information -->
+                  <div class="form-group">
+                    <label for="host" class="form-label">Host</label>
+                    <input type="text" id="host" class="form-input" placeholder="Host name or organization">
+                    <div class="form-error" id="host-error"></div>
+                  </div>
+
+                  <!-- Age Tag -->
+                  <div class="form-group">
+                    <label for="age-tag" class="form-label">Age Tag</label>
+                    <input type="text" id="age-tag" class="form-input" placeholder="e.g. 18+">
+                  </div>
                 </div>
               </div>
-          
+
+              <!-- Right Column -->
               <div class="form-column">
+                <!-- Images Section -->
+                <div class="form-group">
+                  <label class="form-label">Images</label>
+                  <div class="dropzone">
+                    <svg class="upload-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                    <p class="dropzone-text">Drag and drop images here or</p>
+                    <div class="browse-button-container">
+                      <button type="button" class="browse-button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                          <polyline points="17 8 12 3 7 8"></polyline>
+                          <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Browse Files
+                      </button>
+                      <input type="file" id="file-upload" class="file-input" accept="image/*" multiple>
+                    </div>
+                  </div>
+                  <p class="form-description">Supports JPG, PNG, GIF (Max 5MB)</p>
+                  <div id="preview-container" class="preview-container"></div>
+                </div>
+
                 <!-- Event Type -->
                 <div class="form-group">
                   <label class="form-label">Event Type</label>
@@ -601,11 +738,13 @@ input:checked + .slider:before {
                     <button type="button" class="tag-button" data-value="Tech">Tech</button>
                     <button type="button" class="tag-button" data-value="Education">Education</button>
                     <button type="button" class="tag-button" data-value="Social">Social</button>
-                    <button type="button" class="tag-button" data-value="Party">Party</button>
+                    <button type="button" class="tag-button" data-value="Social">Party</button>
+                    <button type="button" class="tag-button" data-value="Social">Custom</button>
+
                   </div>
-                  <input type="hidden" id="event-type" name="event_type" value="Music">
+                  <input type="hidden" id="event-type" name="eventType" value="Music">
                 </div>
-          
+
                 <!-- Budget -->
                 <div class="form-group">
                   <label class="form-label">Budget</label>
@@ -617,39 +756,27 @@ input:checked + .slider:before {
                   </div>
                   <input type="hidden" id="budget" name="budget" value="Free">
                 </div>
+
+                <!-- Additional Notes -->
+                <div class="form-group">
+                  <label for="notes" class="form-label">Additional Notes</label>
+                  <textarea id="notes" class="form-textarea" placeholder="Add any additional details about your event..." rows="5"></textarea>
+                </div>
               </div>
             </div>
-          
-            <!-- Hidden defaults for Flask compatibility -->
-            <input type="hidden" name="host" value="Anonymous">
-            <input type="hidden" name="visibility" value="Public">
-            <input type="hidden" name="age_tag" value="All Ages">
-            <input type="hidden" name="isOffline" value="on">
-            <input type="hidden" name="capacity" value="100">
-            <input type="hidden" name="isUnlimited" value="">
-            <input type="hidden" name="image_urls" value="">
-          
-            <!-- Submit -->
+
+            <!-- Form Submission -->
             <div class="form-actions">
-              <button type="submit" class="button button-primary">Submit</button>
+              <button type="button" id="save-draft" class="button button-outline">Save/Edit Later</button>
+              <button type="submit" id="submit-button" class="button button-primary">Submit</button>
             </div>
           </form>
-          
-          <script>
-            // Tag selector logic
-            document.querySelectorAll('#event-type-selector .tag-button').forEach(btn => {
-              btn.addEventListener('click', () => {
-                document.querySelectorAll('#event-type-selector .tag-button').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                document.getElementById('event-type').value = btn.getAttribute('data-value');
-              });
-            });
-          
-            document.querySelectorAll('#budget-selector .tag-button').forEach(btn => {
-              btn.addEventListener('click', () => {
-                document.querySelectorAll('#budget-selector .tag-button').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                document.getElementById('budget').value = btn.getAttribute('data-value');
-              });
-            });
-          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
