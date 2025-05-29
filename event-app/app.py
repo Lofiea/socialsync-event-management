@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3 
-import re #regex pattern matching 
-from datetime import datetime
+import re
+from datetime import datetime, date  # added `date`
 
 app = Flask(__name__)
 app.secret_key ='supersecretkey'
@@ -53,29 +53,19 @@ def signup():
         if len(password) < 8: 
             error = "Password must be at least 8 characters long." 
             return render_template('signup.html', error=error)
-        
         elif not re.search(r"[A-Z]", password): 
             error = "Password must contain at least one uppercase letter."
             return render_template('signup.html', error=error)
-        
         elif not re.search(r"[a-z]", password):
             error = "Password must contain at least one lowercase letter."
             return render_template('signup.html', error=error)
-        
         elif not re.search(r'[0-9]', password):
             error = "Password must contain at least one number."
             return render_template('signup.html', error=error)
-        
         elif not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
             error = "Password must contain at least one special character."
             return render_template('signup.html', error=error)
-        else: 
-            error = None 
 
-        if error: 
-            return render_template('signup.html', error=error)
-        
-        #check if username or email already exists
         connection = get_db_connection()
         existing_user = connection.execute('SELECT * FROM users WHERE username = ? OR email = ?',
                                             (username, email)).fetchone()
@@ -83,12 +73,9 @@ def signup():
             error = "An account with this username or email already exists."
             connection.close()
             return render_template('signup.html', error=error)
-        #insert user into database
-        connection = get_db_connection()
         connection.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
                            (username, email, password))
         connection.commit()
-        print("New user created:", username, email)
         connection.close()
 
         session['logged_in'] = True
@@ -105,8 +92,7 @@ def profile():
 
 @app.route('/events')
 def events():
-    #you can now filter by today’s date so past events don’t clutter the list
-    today = date.today().isoformat()  # '2025-05-27'
+    today = date.today().isoformat()
     conn = get_db_connection()
     events = conn.execute('''
         SELECT * FROM events
@@ -155,12 +141,8 @@ def create_event():
         data = request.form
         #Parse date+time into datetime objects
         try:
-            start_dt = datetime.strptime(
-                f"{data['startDate']} {data['startTime']}", "%Y-%m-%d %H:%M"
-            )
-            end_dt   = datetime.strptime(
-                f"{data['endDate']} {data['endTime']}", "%Y-%m-%d %H:%M"
-            )
+            start_dt = datetime.strptime(f"{data['startDate']} {data['startTime']}", "%Y-%m-%d %H:%M")
+            end_dt = datetime.strptime(f"{data['endDate']} {data['endTime']}", "%Y-%m-%d %H:%M")
         except ValueError:
             flash("Dates must be in YYYY-MM-DD and times in HH:MM format.", "error")
             return render_template('createevent.html', data=data)
@@ -170,7 +152,7 @@ def create_event():
             return render_template('createevent.html', data=data)
         #Convert back to ISO strings for SQLite
         start_iso = start_dt.isoformat(" ")
-        end_iso   = end_dt.isoformat(" ")
+        end_iso = end_dt.isoformat(" ")
         conn = get_db_connection()
         conn.execute('''
             INSERT INTO events (
@@ -179,8 +161,8 @@ def create_event():
                 host, age_tag, event_type, budget, notes
             ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
         ''', (
-            data.get('name'),
-            data.get('notes'),
+            data.get('title'),
+            data.get('description'),
             start_iso,
             end_iso,
             data.get('location'),
@@ -189,8 +171,8 @@ def create_event():
             data.get('visibility','Public'),
             session.get('username','Anonymous'),
             data.get('age_tag','All Ages'),
-            data.get('event_type'),
-            float(data.get('budget') or 0),
+            data.get('eventType'),
+            data.get('budget', '0'),
             data.get('notes')
         ))
         conn.commit()
