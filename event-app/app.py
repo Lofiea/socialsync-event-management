@@ -3,13 +3,8 @@ import sqlite3
 import re #regex pattern matching 
 
 app = Flask(__name__)
-<<<<<<< HEAD
-
+app.secret_key ='supersecretkey'
 # Database connection function 
-=======
-app.secret_key = 'supersecretkey' #Secret key for session management
-#Database connection function 
->>>>>>> ae7e6918abd67404115bf3cbd27883c0338d4f56
 def get_db_connection(): 
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
@@ -20,12 +15,7 @@ def get_db_connection():
 def index():
     return render_template('index.html')
 
-<<<<<<< HEAD
-@app.route('/login')
-=======
-#route for the login page
-@app.route('/login', methods=['GET', 'POST'])
->>>>>>> ae7e6918abd67404115bf3cbd27883c0338d4f56
+@app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST': 
         email = request.form['email']
@@ -45,12 +35,7 @@ def login():
         return render_template('login.html', error=error)
     return render_template('login.html')
 
-<<<<<<< HEAD
-@app.route('/signup')
-=======
-#route for the signup page
-@app.route('/signup', methods=['GET', 'POST'])
->>>>>>> ae7e6918abd67404115bf3cbd27883c0338d4f56
+@app.route('/signup',methods=['GET','POST'])
 def signup():
     if request.method == 'POST': 
         username = request.form['name']
@@ -67,7 +52,7 @@ def signup():
             error = "Password must be at least 8 characters long." 
             return render_template('signup.html', error=error)
         
-        elif not re.research(r"[A-Z]", password): 
+        elif not re.search(r"[A-Z]", password): 
             error = "Password must contain at least one uppercase letter."
             return render_template('signup.html', error=error)
         
