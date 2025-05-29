@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3 
 import re #regex pattern matching 
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key ='supersecretkey'
+
 # Database connection function 
 def get_db_connection(): 
     connection = sqlite3.connect('database.db')
@@ -103,9 +105,15 @@ def profile():
 
 @app.route('/events')
 def events():
-    connection = get_db_connection()
-    events = connection.execute('SELECT * FROM events').fetchall()
-    connection.close()
+    #you can now filter by today’s date so past events don’t clutter the list
+    today = date.today().isoformat()  # '2025-05-27'
+    conn = get_db_connection()
+    events = conn.execute('''
+        SELECT * FROM events
+        WHERE date(start_dt) >= ?
+        ORDER BY start_dt ASC
+    ''', (today,)).fetchall()
+    conn.close()
     return render_template('events.html', events=events)
 
 @app.route('/host-events')
@@ -141,38 +149,65 @@ def faq():
     return render_template('FAQ.html')
 
 # creating events
-@app.route('/create-event', methods=['GET', 'POST'])
+@app.route('/create-event', methods=['GET','POST'])
 def create_event():
     if request.method == 'POST':
         data = request.form
+        #Parse date+time into datetime objects
+        try:
+            start_dt = datetime.strptime(
+                f"{data['startDate']} {data['startTime']}", "%Y-%m-%d %H:%M"
+            )
+            end_dt   = datetime.strptime(
+                f"{data['endDate']} {data['endTime']}", "%Y-%m-%d %H:%M"
+            )
+        except ValueError:
+            flash("Dates must be in YYYY-MM-DD and times in HH:MM format.", "error")
+            return render_template('createevent.html', data=data)
+        #Ensure end is after start
+        if end_dt <= start_dt:
+            flash("End date/time must come *after* the start date/time.", "error")
+            return render_template('createevent.html', data=data)
+        #Convert back to ISO strings for SQLite
+        start_iso = start_dt.isoformat(" ")
+        end_iso   = end_dt.isoformat(" ")
         conn = get_db_connection()
         conn.execute('''
             INSERT INTO events (
-                name, description, start_date, start_time, end_date, end_time,
-                location, is_offline, capacity, visibility, host,
-                age_tag, event_type, budget, notes
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                name, description, start_dt, end_dt,
+                location, is_offline, capacity, visibility,
+                host, age_tag, event_type, budget, notes
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
         ''', (
             data.get('name'),
             data.get('notes'),
-            data.get('startDate'),
-            data.get('startTime'),
-            data.get('endDate'),
-            data.get('endTime'),
+            start_iso,
+            end_iso,
             data.get('location'),
-            1 if data.get('isOffline') == 'on' else 0,
-            data.get('capacity'),
-            data.get('visibility', 'Public'),
-            data.get('host', 'Anonymous'),
-            data.get('age_tag', 'All Ages'),
+            1 if data.get('isOffline')=='on' else 0,
+            int(data.get('capacity') or 0),
+            data.get('visibility','Public'),
+            session.get('username','Anonymous'),
+            data.get('age_tag','All Ages'),
             data.get('event_type'),
-            data.get('budget'),
+            float(data.get('budget') or 0),
             data.get('notes')
         ))
         conn.commit()
         conn.close()
+        flash("Event created successfully!", "success")
         return redirect(url_for('events'))
+
     return render_template('createevent.html')
+
+@app.route('/delete-event/<int:event_id>', methods=['POST'])
+def delete_event(event_id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM events WHERE id = ?', (event_id,))
+    conn.commit()
+    conn.close()
+    flash("Event deleted.", "info")
+    return redirect(url_for('events'))
 
 if __name__ == '__main__':
     app.run(debug=True)
