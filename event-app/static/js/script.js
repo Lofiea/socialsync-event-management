@@ -22,15 +22,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const startDateInput = document.getElementById('start-date');
 
     // Click event to open the date picker
-    startDateButton.addEventListener('click', function () {
-        startDateInput.focus();
+    startDateButton.addEventListener('click', () => {
+      if (startDateInput.showPicker) startDateInput.showPicker();
+      else startDateInput.click();
     });
-
-    // Update button text when a date is selected
-    startDateInput.addEventListener('change', function () {
-        startDateButton.querySelector('span').textContent = this.value || 'Pick a date';
+    startDateInput.addEventListener('change', () => {
+      startDateButton.querySelector('span').textContent = startDateInput.value || 'Pick a date';
     });
     
+    // Add End Date Button Click Event
+    const endDateButton = document.getElementById('end-date-button');
+    const endDateInput  = document.getElementById('end-date');
+
+    endDateButton.addEventListener('click', () => {
+      if (endDateInput.showPicker) endDateInput.showPicker();
+      else endDateInput.click();
+    });
+    endDateInput.addEventListener('change', () => {
+      document.getElementById('end-date-display').textContent =
+        endDateInput.value || 'Pick a date';
+    });
+
     // Toggle location input placeholder based on offline status
     isOfflineToggle.addEventListener('change', function() {
       locationInput.placeholder = this.checked ? 
@@ -107,23 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Form submission
     eventForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      if (validateForm()) {
-        const formData = getFormData();
-        console.log('Submitting event:', formData);
-        submitButton.disabled = true;
-        submitButton.textContent = 'Submitting...';
-        
-        // Simulate API call
-        setTimeout(() => {
-          showMessage('Event created successfully!', 'success');
-          eventForm.reset();
-          previewContainer.innerHTML = '';
-          submitButton.disabled = false;
-          submitButton.textContent = 'Submit';
-        }, 1500);
-      }
-    });
+  if (!validateForm()) {
+    e.preventDefault(); // only stop submission if form is invalid
+  }
+});
     
     // Functions
     function handleFileUpload(e) {

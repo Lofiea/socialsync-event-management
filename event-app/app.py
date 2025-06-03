@@ -1,9 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from datetime import datetime
+from werkzeug.utils import secure_filename
+import os
 import sqlite3 
 import re #regex pattern matching 
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey' #Secret key for session management
+
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.template_filter('datetimeformat')
+def datetimeformat(value):
+    try: 
+        return datetime.strptime(value, '%Y-%m-%d').strftime('%m/%d/%Y')
+    except: 
+        return value
 #Database connection function 
 def get_db_connection(): 
     connection = sqlite3.connect('database.db')
@@ -27,6 +40,7 @@ def login():
         connection.close()
 
         if user and user['password'] == password: 
+            session.permanent = True  # Make the session permanent
             session['logged_in'] = True
             session['username'] = user['username']
             flash('You have successfully logged in!')
@@ -35,6 +49,12 @@ def login():
         error = "Invalid email or password."
         return render_template('login.html', error=error)
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash("You've been logged out.")
+    return redirect(url_for('index'))
 
 #route for the signup page
 @app.route('/signup', methods=['GET', 'POST'])
@@ -102,15 +122,29 @@ def signup():
 #route for the profile page
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
-
+    if not session.get('logged_in'):
+        flash('You need to log in first.')
+        return redirect(url_for('login'))
+    return render_template('profile.html', username=session.get('username'))
 #route for the event page
 @app.route('/events')
 def events():
+    sort_by = request.args.get('sort', 'recommended')  # get sort param from URL
+
+    query = 'SELECT * FROM events'
+    if sort_by == 'date':
+        query += ' ORDER BY start_date ASC, start_time ASC'
+    elif sort_by == 'price':
+        query += ' ORDER BY budget ASC'  # this depends on how you store "budget"
+    elif sort_by == 'rating':
+        query += ' ORDER BY rating DESC'  # only if you have a rating column
+    elif sort_by == 'alphabetical':
+        query += ' ORDER BY title COLLATE NOCASE ASC' 
+
     connection = get_db_connection()
-    events = connection.execute('SELECT * FROM events').fetchall()
+    events = connection.execute(query).fetchall()
     connection.close()
-    return render_template('events.html', events=events)
+    return render_template('events.html', events=events, current_sort=sort_by)
 
 #route for the event details page
 @app.route('/host-events')
@@ -146,26 +180,44 @@ def faq():
     return render_template('FAQ.html')
 
 #route to create an event - with POST handling 
-@app.route('/create-event')
+@app.route('/create-event', methods=['GET', 'POST'])
 def create_event():
     if request.method == 'POST':
-        #Get data from form 
-        title = request.form['title']
+        title       = request.form['title']
         description = request.form['description']
-        date = request.form['date']
-        location = request.form['location'] 
+        startDate   = request.form['startDate']
+        startTime   = request.form['startTime']
+        endDate     = request.form['endDate']
+        endTime     = request.form['endTime']
+        location    = request.form['location']
+        attendees = request.form.get('attendees', '0')
 
-        #insert data into the events table
-        connection = get_db_connection()
-        connection.execute('INSERT INTO events (title, description, date, location) VALUES (?, ?, ?, ?)',
-                           (title, description, date, location))
-        connection.commit()
-        connection.close()
-
-        #redirect to events page to see the new event 
+        image_file = request.files['image']
+        if image_file.filename != '':
+            image_filename = secure_filename(image_file.filename)
+            image_file.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
+        else:
+            image_filename = None
+        conn = get_db_connection()
+        conn.execute(
+        'INSERT INTO events (title, description, start_date, start_time, end_date, end_time, location, attendees, image) '
+        'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        (title, description, startDate, startTime, endDate, endTime, location, attendees, image_filename)
+        )
+        conn.commit()
+        conn.close()
         return redirect(url_for('events'))
-    
+
     return render_template('createevent.html')
+@app.route('/delete-event/<int:event_id>', methods=['POST'])
+def delete_event(event_id):
+    con = get_db_connection()
+    con.execute('DELETE FROM events WHERE id = ?', (event_id,))
+    con.commit()
+    con.close()
+    flash("Event deleted.", "info")
+    return redirect(url_for('events'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

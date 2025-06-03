@@ -32,6 +32,9 @@
                     <li>
                         <a href="{{ url_for('profile') }}">
                             <span class="material-symbols-outlined" style="font-size: 32px;">account_circle</span>
+                        </a>
+                    </li>
+                    <li><a href="{{ url_for('logout') }}"><button class="login">Logout</button></a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}"><button class="login">Login</button></a></li>
                     <li><a href="{{ url_for('signup') }}"><button class="login">Sign Up</button></a></li>

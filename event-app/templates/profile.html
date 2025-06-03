@@ -225,8 +225,8 @@
 <body>
     <div class="sidebar">
         <div class="logo">
-            <a href="index.html">
-                <img src="images/socialsynclogo2.png" alt="SocialSync" class="socialsync-logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/socialsynclogo2.png') }}" alt="SocialSync" class="socialsync-logo">
             </a>
         </div>
         <!-- Links and icons of notification
@@ -264,7 +264,7 @@
         <div class="spacer"></div>
         
         <!-- Links and icons of log out-->
-        <a href="#" class="nav-item logout">
+        <a href="{{ url_for('logout') }}" class="nav-item logout">
             <i class="material-icons">logout</i>
             <span class="nav-text">Log out</span>
         </a>
