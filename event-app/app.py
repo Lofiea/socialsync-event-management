@@ -3,7 +3,8 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 import sqlite3 
-import re #regex pattern matching 
+import re
+from datetime import datetime, date  # added `date`
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey' #Secret key for session management
@@ -20,16 +21,15 @@ def datetimeformat(value):
 #Database connection function 
 def get_db_connection(): 
     connection = sqlite3.connect('database.db')
-    connection.row_factory = sqlite3.Row #Access data by column name 
+    connection.row_factory = sqlite3.Row
     return connection 
 
-#route for the home page 
+# Home page 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-#route for the login page
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST': 
         email = request.form['email']
@@ -73,29 +73,19 @@ def signup():
         if len(password) < 8: 
             error = "Password must be at least 8 characters long." 
             return render_template('signup.html', error=error)
-        
-        elif not re.research(r"[A-Z]", password): 
+        elif not re.search(r"[A-Z]", password): 
             error = "Password must contain at least one uppercase letter."
             return render_template('signup.html', error=error)
-        
         elif not re.search(r"[a-z]", password):
             error = "Password must contain at least one lowercase letter."
             return render_template('signup.html', error=error)
-        
         elif not re.search(r'[0-9]', password):
             error = "Password must contain at least one number."
             return render_template('signup.html', error=error)
-        
         elif not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
             error = "Password must contain at least one special character."
             return render_template('signup.html', error=error)
-        else: 
-            error = None 
 
-        if error: 
-            return render_template('signup.html', error=error)
-        
-        #check if username or email already exists
         connection = get_db_connection()
         existing_user = connection.execute('SELECT * FROM users WHERE username = ? OR email = ?',
                                             (username, email)).fetchone()
@@ -103,12 +93,9 @@ def signup():
             error = "An account with this username or email already exists."
             connection.close()
             return render_template('signup.html', error=error)
-        #insert user into database
-        connection = get_db_connection()
         connection.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
                            (username, email, password))
         connection.commit()
-        print("New user created:", username, email)
         connection.close()
 
         session['logged_in'] = True
@@ -119,7 +106,6 @@ def signup():
         return redirect(url_for('login'))
     return render_template('signup.html')
 
-#route for the profile page
 @app.route('/profile')
 def profile():
     if not session.get('logged_in'):
@@ -146,7 +132,6 @@ def events():
     connection.close()
     return render_template('events.html', events=events, current_sort=sort_by)
 
-#route for the event details page
 @app.route('/host-events')
 def host_events():
     return render_template('hostevents.html')
@@ -218,6 +203,15 @@ def delete_event(event_id):
     flash("Event deleted.", "info")
     return redirect(url_for('events'))
 
+
+@app.route('/delete-event/<int:event_id>', methods=['POST'])
+def delete_event(event_id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM events WHERE id = ?', (event_id,))
+    conn.commit()
+    conn.close()
+    flash("Event deleted.", "info")
+    return redirect(url_for('events'))
 
 if __name__ == '__main__':
     app.run(debug=True)

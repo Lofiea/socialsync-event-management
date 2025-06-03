@@ -554,10 +554,9 @@ input:checked + .slider:before {
   <div class="page-container">
     <div class="container">
       <h1 class="page-title">Create New Event</h1>
-      
       <div class="card">
         <div class="card-content">
-          <form id="event-form" class="event-form" method="POST" action="/createevent">
+          <form id="event-form" class="event-form" method="POST" action="/create-event">
             <div class="form-grid">
               <div class="form-column">
                 <!-- Event Name -->
@@ -565,13 +564,13 @@ input:checked + .slider:before {
                   <label for="event-name" class="form-label">Event Name</label>
                   <input type="text" id="event-name" name="name" class="form-input" placeholder="Enter event name" required>
                 </div>
-          
+
                 <!-- Event Description -->
                 <div class="form-group">
                   <label for="event-description" class="form-label">Event Description</label>
                   <textarea id="event-description" name="notes" class="form-textarea" placeholder="Enter a brief description..." rows="4" required></textarea>
                 </div>
-          
+
                 <!-- Start Date and Time -->
                 <div class="form-group">
                   <label class="form-label">Start Date & Time</label>
@@ -580,14 +579,23 @@ input:checked + .slider:before {
                     <input type="time" id="start-time" name="startTime" class="form-input" required>
                   </div>
                 </div>
-          
+
+                <!-- End Date and Time -->
+                <div class="form-group">
+                  <label class="form-label">End Date & Time</label>
+                  <div class="date-time-container">
+                    <input type="date" id="end-date" name="endDate" class="form-input">
+                    <input type="time" id="end-time" name="endTime" class="form-input">
+                  </div>
+                </div>
+
                 <!-- Event Location -->
                 <div class="form-group">
                   <label for="location" class="form-label">Location</label>
                   <input type="text" id="location" name="location" class="form-input" placeholder="Enter city or venue" required>
                 </div>
               </div>
-          
+
               <div class="form-column">
                 <!-- Event Type -->
                 <div class="form-group">
@@ -605,7 +613,7 @@ input:checked + .slider:before {
                   </div>
                   <input type="hidden" id="event-type" name="event_type" value="Music">
                 </div>
-          
+
                 <!-- Budget -->
                 <div class="form-group">
                   <label class="form-label">Budget</label>
@@ -619,7 +627,7 @@ input:checked + .slider:before {
                 </div>
               </div>
             </div>
-          
+
             <!-- Hidden defaults for Flask compatibility -->
             <input type="hidden" name="host" value="Anonymous">
             <input type="hidden" name="visibility" value="Public">
@@ -628,28 +636,34 @@ input:checked + .slider:before {
             <input type="hidden" name="capacity" value="100">
             <input type="hidden" name="isUnlimited" value="">
             <input type="hidden" name="image_urls" value="">
-          
+
             <!-- Submit -->
             <div class="form-actions">
               <button type="submit" class="button button-primary">Submit</button>
             </div>
           </form>
-          
-          <script>
-            // Tag selector logic
-            document.querySelectorAll('#event-type-selector .tag-button').forEach(btn => {
-              btn.addEventListener('click', () => {
-                document.querySelectorAll('#event-type-selector .tag-button').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                document.getElementById('event-type').value = btn.getAttribute('data-value');
-              });
-            });
-          
-            document.querySelectorAll('#budget-selector .tag-button').forEach(btn => {
-              btn.addEventListener('click', () => {
-                document.querySelectorAll('#budget-selector .tag-button').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                document.getElementById('budget').value = btn.getAttribute('data-value');
-              });
-            });
-          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Logic for tag selectors -->
+  <script>
+    document.querySelectorAll('#event-type-selector .tag-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#event-type-selector .tag-button').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        document.getElementById('event-type').value = btn.getAttribute('data-value');
+      });
+    });
+
+    document.querySelectorAll('#budget-selector .tag-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#budget-selector .tag-button').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        document.getElementById('budget').value = btn.getAttribute('data-value');
+      });
+    });
+  </script>
+</body>
+</html>

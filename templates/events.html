@@ -62,16 +62,24 @@
       </ul>
     </nav>
   </header>
-  
 
   <!-- Main Container -->
   <div class="main-container">
     <!-- Sidebar -->
     <div class="sidebar">
       <h3>Filter Events</h3>
-      <div class="filter-group"><label>Location</label><input type="text" placeholder="Enter city or state" /></div>
-      <div class="filter-group"><label>Name</label><input type="text" placeholder="Event name" /></div>
-      <div class="filter-group"><label>Date/Time</label><input type="date" /></div>
+      <div class="filter-group">
+        <label>Location</label>
+        <input type="text" placeholder="Enter city or state" />
+      </div>
+      <div class="filter-group">
+        <label>Name</label>
+        <input type="text" placeholder="Event name" />
+      </div>
+      <div class="filter-group">
+        <label>Date/Time</label>
+        <input type="date" />
+      </div>
       <div class="filter-group">
         <label>Event Type</label>
         <select>
@@ -100,7 +108,9 @@
             <option>Rating</option>
           </select>
         </div>
-        <button class="ctaEvent"><a href="createevent.html">Create Event</a></button>
+        <button class="ctaEvent">
+          <a href="{{ url_for('create_event') }}">Create Event</a>
+        </button>
       </div>
 
       <!-- Event Grid -->
@@ -108,14 +118,12 @@
         {% for event in events %}
         <div class="event-card">
           <div class="event-header">
-            <span class="price">$10</span>
+            <span class="price">${{ event['budget'] }}</span>
             <span class="tag">#{{ event['event_type'] }}</span>
-            <button class="bookmark" data-id="{{ event['event_id'] }}">🤍</button>
+            <button class="bookmark" data-id="{{ event['id'] }}">🤍</button>
           </div>
           <div class="event-image">
-            {% if event['image_urls'] %}
-              <img src="{{ event['image_urls'] }}" alt="Event Image" style="width: 100%; height: 100%; object-fit: cover;">
-            {% else %}IMAGE{% endif %}
+            <img src="{{ url_for('static', filename='images/placeholder.png') }}" alt="Event" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="event-details">
             <h4>{{ event['name'] }}</h4>
@@ -133,7 +141,6 @@
         </div>
         {% endfor %}
       </div>
-      
 
       <!-- Pagination -->
       <div class="pagination">
@@ -148,38 +155,10 @@
           <span>•</span>
         </div>
       </div>
-    </main><!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Events</title>
-      <link rel="stylesheet" href="styles.css" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    
-      
-      <!-- Rating Logic -->
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const ratings = document.querySelectorAll('.rating');
-          ratings.forEach(ratingContainer => {
-            const stars = ratingContainer.querySelectorAll('.star');
-            stars.forEach(star => {
-              star.addEventListener('click', () => {
-                const value = parseInt(star.dataset.value);
-                stars.forEach(s => {
-                  s.textContent = parseInt(s.dataset.value) <= value ? \"★\" : \"☆\";
-                });
-              });
-            });
-          });
-        });
-      </script>
-    </body>
-    </html>
-    
+    </main>
   </div>
 
+  <!-- Rating Logic -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const ratings = document.querySelectorAll('.rating');
