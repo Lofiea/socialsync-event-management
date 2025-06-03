@@ -194,22 +194,13 @@ def create_event():
         return redirect(url_for('events'))
 
     return render_template('createevent.html')
+
 @app.route('/delete-event/<int:event_id>', methods=['POST'])
 def delete_event(event_id):
     con = get_db_connection()
     con.execute('DELETE FROM events WHERE id = ?', (event_id,))
     con.commit()
     con.close()
-    flash("Event deleted.", "info")
-    return redirect(url_for('events'))
-
-
-@app.route('/delete-event/<int:event_id>', methods=['POST'])
-def delete_event(event_id):
-    conn = get_db_connection()
-    conn.execute('DELETE FROM events WHERE id = ?', (event_id,))
-    conn.commit()
-    conn.close()
     flash("Event deleted.", "info")
     return redirect(url_for('events'))
 
