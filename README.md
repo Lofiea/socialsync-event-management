@@ -47,7 +47,7 @@ Screenshots or short demos of event creation and filtering will be added.
 - [ ] Social features: friend connections, mutual events, and private invitations
 
 ## Authors and acknowledgment
-- **Trang N.** – Lead Developer · UI/UX Design · Frontend & Backend · Project/Feature Planning
+- **Trang N.** – Frontend & Backend Developer · UI/UX Design · Project/Feature Planning
 - **Dishita S.** – Backend Developer · Feature Planning  
 - **Ansh L.** – Frontend Developer · Backend Support · Testing  
 - **Misha B.** – Frontend Developer · Former Product Owner (early stage)  
