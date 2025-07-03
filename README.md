@@ -1,6 +1,7 @@
 # SocialSync – Event Management Web App 
 
-SocialSync is a full-stack event management platform designed to help users create, manage, and explore social events in one place. Originally developed as a group assignment at Drexel University.
+Finding the right party or event shouldn't feel like digging through a cluttered calendar or relying on random group chats. That’s where our SocialSync comes in. It helps you easily discover or host events in your area, with smart filters to sort by location, time, type, or age limits. Whether you’re into private house parties or public events, we make it easy to find what fits you. To make things even better, we offer a subscription with extra perks like fast passes, exclusive discounts, and even the chance to pick the music at certain events. Safety matters too, so we ask for a quick government ID check at sign-up—just to keep things secure and stress-free. Once you buy a ticket, it’s sent straight to your phone as a QR code—so all you need to do is show, scan, and go.
+
 
 ## Features
 
