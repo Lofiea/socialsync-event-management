@@ -51,7 +51,7 @@ Screenshots or short demos of event creation and filtering will be added.
 - **Dishita S.** – Backend Developer · Feature Planning  
 - **Ansh L.** – Frontend Developer · Backend Support · Testing  
 - **Misha B.** – Frontend Developer · Former Product Owner (early stage)  
-- **Gabe D.** – Frontend Developer (early phase) · Initial Feedback & Ideas
+- **Gabe D.** – Frontend Developer (early phase) 
 
 ## License
 This project is for educational and demonstration purposes.
