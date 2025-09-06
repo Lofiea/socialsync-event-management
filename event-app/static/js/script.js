@@ -96,13 +96,33 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Handle tag selection for Budget
+    // Handle tag selection for Budget with custom input
+    const customBudgetWrapper = document.getElementById('custom-budget-wrapper');
+    const customBudgetInput = document.getElementById('custom-budget-input');
+
     budgetButtons.forEach(button => {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', function () {
+      // Remove 'selected' from all, then add to clicked
         budgetButtons.forEach(btn => btn.classList.remove('selected'));
         this.classList.add('selected');
-        budgetInput.value = this.getAttribute('data-value');
+
+        const selectedValue = this.getAttribute('data-value');
+
+        if (selectedValue === 'Custom') {
+          customBudgetWrapper.style.display = 'block';
+          budgetInput.value = ''; // Will be set on form submit
+        } else {
+          customBudgetWrapper.style.display = 'none';
+          budgetInput.value = 'Free';
+        }
       });
+    });
+
+    eventForm.addEventListener('submit', function () {
+      const selected = document.querySelector('#budget-selector .tag-button.selected').dataset.value;
+      if (selected === 'Custom') {
+        budgetInput.value = customBudgetInput.value || '0';
+      }
     });
     
     // Save as draft

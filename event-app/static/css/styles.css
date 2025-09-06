@@ -271,28 +271,23 @@ h1{
   }
 
 .container {  
-    display: flex;
-    flex-wrap: wrap;
-    gap:20px;
-    text-align: center;
-    justify-content: center;
     max-width: 1200px;
-    margin:0 auto;  
+    margin: 0 auto;
     padding: 0 20px;
+    text-align: center;
     
 }  
 
 .event-card {  
-    background: white;  
-    border-radius: 8px;  
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
-    padding: 20px;  
-    margin: 20px;  
-    text-align: center;  
-    display: inline-block;  
-    width: 25%;  
-    vertical-align: text-top;
+    width: 100%;
     max-width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    transition: transform 0.3s;
 }  
 
 .event-image {  
@@ -436,19 +431,22 @@ main {
 /* Event Grid Styles */
 .event-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    /* at least 280px per column, expand if there’s extra space */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 4rem;
+    margin-top: 2rem;
+    justify-items: center; /* center items inside each column */
 }
 
 .event-card {
-    background-color: white;
+    background: white;
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;   /* cards won’t get wider than 300px */
+    width: 100%;        /* but can shrink to fill the grid cell */
+    text-align: center;
     transition: transform 0.3s ease;
-    width: 100%;
-    margin: 0;
 }
 
 .event-card:hover {
@@ -485,13 +483,45 @@ main {
 }
 
 .event-image {
-    height: 150px;
+    position: relative;
+    width: 100%;
+    height: 180px;
     background-color: #eee;
+    border-radius: 8px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #999;
-    font-weight: bold;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.delete-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.delete-form button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease;
+}
+
+.delete-form button:hover {
+    background-color: darkorange;
 }
 
 .event-details {
